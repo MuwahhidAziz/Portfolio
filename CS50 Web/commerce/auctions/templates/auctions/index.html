@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for listing in listings %}
+        <div class="container dflex flex-column highlight">
+            <div><img src="{{ listing.image_url }}" alt='No Image Provided' /></div>
+            <div>
+                <a class="list_link" href="{% url 'listing' title=listing.title %}">Visit!</a>
+                <div class="fw-bold">{{ listing.title }}</div>
+                <div class="text-black">{{ listing.description }}</div>
+            </div>
+        </div>
+        <hr/>
+    {% empty %}
+        Nothing Available!
+    {% endfor %}
+    
+{% endblock %}

@@ -1,0 +1,9 @@
+body {
+    padding: 10px;
+}
+.highlight {
+    background-color: lightgray;
+}
+.highlight:hover {
+    background-color: darkgray;
+}

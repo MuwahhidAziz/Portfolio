@@ -1,0 +1,51 @@
+{% extends "app/layout.html" %}
+
+{% block head %}{% endblock %}
+
+{% block title %} Register {% endblock %}
+
+{% block body  %}
+
+	<div class="p-4">
+
+		{% if message %}
+			<p class="text-red-500 text-2xl font-semibold m-auto p-4">{{ message }}</p>
+			<hr/>
+		{% endif %}
+
+		<form class="p-4" action="{% url 'register' %}" method="POST">
+
+			{% csrf_token %}
+
+			<div class="flex items-center border-2 my-2 flex-col">
+				<label class="text-center font-bold text-xl" for="name">Username:</label>
+				<input class="text-center w-full p-4 hover:ring-2" id="name" type="text" name="username" placeholder="Your Username">
+			</div>
+
+			<div class="flex items-center border-2 my-2 flex-col">
+				<label class="text-center font-bold text-xl" for="mail">Email:</label>
+				<input class="text-center w-full p-4 hover:ring-2" id="mail" type="email" name="email" placeholder="Your Email">
+			</div>
+
+			<div class="flex items-center border-2 my-2 flex-col">
+				<label class="text-center font-bold text-xl" for="password">Password:</label>
+				<input class="text-center w-full p-4 hover:ring-2" id="password" type="password" name="password" placeholder="Your Password">
+			</div>
+
+			<div class="flex items-center border-2 my-2 flex-col">
+				<label class="text-center font-bold text-xl" for="confirmation">Confirm:</label>
+				<input class="text-center w-full p-4 hover:ring-2" id="confirmation" type="password" name="confirmation" placeholder="Confirm Password">
+			</div>
+
+			<input class="rounded bg-green-500 p-2 w-20" type="submit" value="Register">
+
+		</form>
+
+		<hr/>
+
+		<h3 class="text-gray py-2">Already registered ?</h3>
+		<a class="rounded bg-green-500 p-2 w-20" href="{% url 'login' %}">Login</a>
+
+	</div>
+
+{% endblock %}

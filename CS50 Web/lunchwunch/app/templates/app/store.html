@@ -1,0 +1,27 @@
+{% extends "app/layout.html" %}
+
+{% block title %} Store {% endblock %}
+
+{% block body %}
+
+	{% if categories %}
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-4">
+
+		{% for cat in categories %}
+
+			<a href="{% url 'category' cat %}" class="bg-gray-300 p-4 block">
+				<div class="hover:underline text-white text-center font-semibold">{{ cat }}</div>
+			</a>
+
+		{% endfor %}
+
+		</div>
+
+	{% else %}
+
+		<div class="text-red-700">No Products Yet...</div>
+
+	{% endif %}
+
+{% endblock %}

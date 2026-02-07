@@ -1,0 +1,79 @@
+{% extends "auctions/layout.html" %}
+{% block title %}{{ listing.title }}{% endblock %}
+{% block body %}
+	<center><h1 class="fw-bold">{{ listing.title }}</h1></center>
+	<div class="dflex">
+		<div>
+			<img src="{{ listing.image_url }}" alt="No Image Provided" />
+		</div>
+		<div class="dflex flex-column container justify-between">
+			<div>
+				<div class="font-weight-bold">Description:</div>
+				<p>{{ listing.description }}</p>
+			</div>
+			<div>
+				<div class="font-weight-bold">Listed By:</div>
+				<p>{{ listing.lister.username }}</p>
+			</div>
+			<div>
+				<div class="font-weight-bold">Starting:</div>
+				<p>${{ listing.starting_bid }}</p>
+			</div>
+			<div>
+				<div class="font-weight-bold">Current:</div>
+				<p>${{ listing.current }}</p>
+			</div>
+			<div>
+				<div class="font-weight-bold">Status:</div>
+					{% if listing.active %}
+						<p class="text-success">Open!</p>
+					{% else %}
+						<p class="text-danger">Closed!</p>
+					{% endif %}
+			</div>
+			{% if winner %}
+			<div>
+				<p class="text-success">You won the bid !!!</p>
+			</div>
+			{% endif %}
+			<div>
+				<div class="font-weight-bold">Category:</div>
+				<p>{{ listing.category }}</p>
+			</div>
+		</div>
+	</div>
+	{% if user.is_authenticated %}
+		{% if user.username == listing.lister.username %}
+		<button class="btn btn-danger" onclick="window.location.href='{% url 'end' user=user.username title=listing.title %}'">Close Bid!</button>
+		{% else %}
+		<button class="btn btn-success" onclick="window.location.href='{% url 'bid' title=listing.title user=user.username %}'">Place Bid!</button>
+		<button class="btn btn-primary" onclick="window.location.href='{% url 'addwatch' title=listing.title user=user.username %}'">Add to Watchlist!</button>
+		<hr/>
+		<form action="{% url 'comment' user=user.username title=listing.title %}" method="POST">
+			{% csrf_token %}
+			{{ form }}
+			<input class="btn btn-secondary" type="submit" value="Comment" />
+		</form>
+		{% endif %}
+	{% else %}
+	Login to comment and place bid!
+	{% endif %}
+	<hr/>
+	<div>
+		{% for comment in comments %}
+		<div class="dflex flex-column">
+			<div class="dflex bg-white">
+				<div class="font-weight-bold">Comment:</div>
+				<div>{{ comment.comment }}</div>
+			</div>
+			<div class="dflex">
+				<div class="font-weight-bold">By:</div>
+				<div>{{ comment.commentor.username }}</div>
+			</div>
+		</div>
+		<hr/>
+		{% empty %}
+		No Comments...
+		{% endfor %}
+	</div>
+{% endblock %}

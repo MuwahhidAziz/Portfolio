@@ -1,0 +1,61 @@
+{% extends "app/layout.html" %}
+
+{% block head %}{% endblock %}
+
+{% block title %} {{ user.username }}'s Cart {% endblock %}
+
+{% block body %}
+
+	{% if cart %}
+
+		<h1 class="text-center text-2xl"><span class="font-bold">Total Bill: </span>{{ bill }} Rs.</h1>
+
+		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+	{% endif %}
+
+	{% for item in cart %}
+
+	<div class="flex flex-col gap-y-2 border rounded-md p-2 hover:shadow">
+
+		<div><img class="w-[20vw] h-auto" src="{{ item.product.main_image.url }}"/></div>
+
+		<h3 class="font-bold">Product Name:</h3>
+		<p class="ml-1">{{ item.product.title }}</p>
+
+		<h3 class="font-bold">Product Category:</h3>
+		<p class="ml-1">{{ item.product.category }}</p>
+
+		<h3 class="font-bold">Product Size:</h3>
+		<p class="ml-1">{{ item.size }}</p>
+
+		<h3 class="font-bold">Product Quantity:</h3>
+		<p class="ml-1">{{ item.quantity }}</p>
+
+		<h3 class="font-bold">Total Price:</h3>
+		<p class="ml-1">{{ item.bill }} Rs.</p>
+
+		<a class="border border-red-700 rounded-lg p-1 text-center hover:font-bold text-red-700" href="{% url 'product' item.product.category item.product.title %}">Check Product Details</a>
+
+		<a class="border border-red-700 rounded-lg p-1 text-center hover:font-bold text-red-700" href="{% url 'category' item.product.category %}">See Related Products</a>
+
+		<form method="POST" action="{% url 'remove' item.product.category item.product.title item.size %}" >
+			{% csrf_token %}
+			<input class="w-full border border-red-700 rounded-lg p-1 text-center hover:font-bold text-red-700" type="submit" value="Remove From cart"/>
+		</form>
+
+	</div>
+
+	{% empty %}
+		<h3 class="text-center mx-auto text-2xl mt-8 font-bold hover:underline" onclick="window.location.href = {% url 'store' %}">Your Cart is empty...</h3>
+	{% endfor %}
+
+	{% if cart %}
+
+		</div>
+
+		<a class="border border-red-700 rounded-md hover:font-bold text-red-700 p-1" href="{% url 'order' %}">Place Order!!!</a>
+
+	{% endif %}
+
+{% endblock %}

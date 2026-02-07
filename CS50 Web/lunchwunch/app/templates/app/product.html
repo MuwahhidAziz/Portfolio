@@ -1,0 +1,79 @@
+{% extends "app/layout.html" %}
+
+{% block head %}{% endblock %}
+
+{% block title %} {{ product.title }} {% endblock %}
+
+{% block body %}
+
+	<h1 class="font-bold mx-auto text-4xl text-center">{{ product.title }}</h1>
+
+	<div>
+
+		<div class="flex justify-center m-1">
+			{% if product.main_image %}
+			<img class="w-[20vw] h-auto" src="{{ product.main_image.url }}" alt="{{ product.title }}"/>
+			{% else %}
+				Image Not Available...
+			{% endif %}
+		</div>
+
+		<div class="text-center">
+
+			<hr/>
+
+			<h3 class="font-bold">Category:</h3>
+			<p class="ml-1">{{ product.category }}</p>
+
+			<hr/>
+			<hr/>
+
+			<h3 class="font-bold">Description:</h3>
+			<p class="ml-1">{{ product.description }}</p>
+
+			<hr/>
+			<hr/>
+
+			{% for size, price in product.variants.items %}
+
+				<h3 class="font-bold">Price ({{ size }}):</h3>
+				<p class="ml-1">{{ price }} Rs.</p>
+
+				<hr/>
+				<hr/>
+
+			{% endfor %}
+
+			<hr/>
+
+		</div>
+
+	</div>
+
+	<form id="form" class="flex flex-col items-center gap-y-4 p-1 m-1 border rounded-lg" action="{% url 'add' product.category product.title%}" method="POST">
+		{% csrf_token %}
+		<span class="font-bold">Quantity:</span>
+		<div class="grid grid-cols-3 w-[120px] border rounded-lg">
+			<button class="text-center border" type="button" id='dec' >-</button>
+			<input class="border text-center" id='val' type="number" name="quantity" value="{{ value }}" required/>
+			<button class="text-center border" type="button" id='inc' >+</button>
+		</div>
+
+		<select class="border rounded-md border-black bg-red-700 text-white" name="size" required>
+
+		{% for size in product.variants %}
+
+			<option value="{{ size }}">{{ size }}</option>
+
+		{% endfor %}
+
+		</select>
+
+		<input class="border rounded-md bg-red-700 p-1 text-white" type="submit" value="{{ text }}" >
+	</form>
+
+	<div id="box" class="text-red-700 text-center border border-lg text-2xl font-bold"></div>
+
+	<script src="../../static/app/JS/cart.js"></script>
+
+{% endblock %}

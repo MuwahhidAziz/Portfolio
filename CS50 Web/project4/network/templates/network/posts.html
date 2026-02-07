@@ -1,0 +1,12 @@
+{%  extends "network/layout.html" %}
+{% block body %}
+<div>
+    {% if user.is_authenticated %}
+    <form id="post" class="p-2" method="POST" action="{% url 'post' %}">
+        {% csrf_token %}
+        {{ post_form }}
+        <button class="btn btn-primary m-2 p-2" type="submit">Post</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "network/layout.html" %}
+{% block body %}
+<div id="posts" class="p-2">
+    
+</div>
+<div id="profile" class="p-2">
+    
+</div>
+<div id="following" class="p-2">
+    
+</div>
+<div id="paginate" class="pagination d-flex justify-content-center">
+    <button id='prev' class="btn btn-circle btn-primary page-item" style="display:{% if prev %}block{% else %}none{% endif %};">Prev</button>
+    <button id='next' class="btn btn-circle btn-primary page-item" style="display:{% if next %}block{% else %}none{% endif %};">Next</button>
+</div>
+{% endblock %}

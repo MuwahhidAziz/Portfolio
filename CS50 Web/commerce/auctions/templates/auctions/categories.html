@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+{% block title %}Categories{% endblock %}
+{% block body %}
+{% for category in categories %}
+
+	<a class="nav-link fw-bold" href="{% url 'category' cat=category %}">{{ category }}</a>
+
+{% empty %}
+
+	Nothing Avalibale!
+
+{% endfor %}
+{% endblock %}

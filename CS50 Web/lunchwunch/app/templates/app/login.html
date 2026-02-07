@@ -1,0 +1,41 @@
+{% extends "app/layout.html" %}
+
+{% block head %}{% endblock %}
+
+{% block title %} Login {% endblock %}
+
+{% block body  %}
+
+	<div class="p-4">
+
+		{% if message %}
+			<p class="text-red-500 text-2xl font-semibold m-auto p-4">{{ message }}</p>
+			<hr/>
+		{% endif %}
+
+		<form class="p-4" action="{% url 'login' %}" method="POST">
+
+			{% csrf_token %}
+
+			<div class="flex items-center justify-center border-2 my-2 flex-col">
+				<label class="text-center font-bold text-xl" for="name">Username:</label>
+				<input class="text-center w-full p-4 hover:ring-2" id="name" type="text" name="username" placeholder="Your Username">
+			</div>
+
+			<div class="flex items-center justify-center border-2 my-2 flex-col">
+				<label class="text-center font-bold text-xl" for="password">Password:</label>
+				<input class="text-center w-full p-4 hover:ring-2" id="password" type="password" name="password" placeholder="Your Password">
+			</div>
+
+			<input class="rounded bg-green-500 p-2 w-20" type="submit" value="Login">
+
+		</form>
+
+		<hr/>
+
+		<h3 class="text-gray py-2">Not registered ?</h3>
+		<a class="rounded bg-green-500 p-2 w-20" href="{% url 'register' %}">Register</a>
+
+	</div>
+
+{% endblock %}

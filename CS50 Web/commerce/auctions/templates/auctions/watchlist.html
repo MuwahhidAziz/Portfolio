@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+{% block title %}Watchlist{% endblock %}
+{% block body %}
+<div class="dflex flex-column">
+{% for ls in wls %}
+	<div class="dflex container highlight">
+		<div>
+			<img src="{{ ls.listing.image_url }}" alt="No Image Provided" />
+		</div>
+		<div class="dflex flex-column">
+			<div class="dflex container">
+				<a href="{% url 'listing' title=ls.listing.title %}">Visit!</a>
+			</div>
+		
+			<div class="dflex container">
+				<div class="font-weight-bold">Listing:</div>
+				<div class="text-black">{{ ls.listing.title }}</div>
+			</div>
+		
+			<div class="dflex container">
+				<div class="font-weight-bold">Starting:</div>
+				<div class="text-black">${{ ls.listing.starting_bid }}</div>
+			</div>
+		
+			<div class="dflex container">
+				<div class="font-weight-bold">Current:</div>
+				<div class="text-black">${{ ls.listing.current }}</div>
+			</div>
+		</div>
+	</div>
+
+	<button class="btn-danger" onclick="window.location.href='{% url 'remove' title=ls.listing.title user=ls.user.username %}'">Remove!</button>
+	<hr/>
+
+{% empty %}
+	Nothing Yet!
+{% endfor %}
+</div>
+{% endblock %}

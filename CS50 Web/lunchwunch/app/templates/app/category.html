@@ -1,0 +1,51 @@
+{% extends "app/layout.html" %}
+
+{% block title %} {{ category }} Products {% endblock %}
+
+{% block body %}
+	<h1 class="p-4 text-4xl text-center font-bold hover:bg-gray-50">{{ category }}</h1>
+
+	{% if products %}
+
+		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+	{% endif %}
+
+	{% for product in products %}
+
+		<div class="flex flex-col gap-y-2 border rounded-md p-2 hover:shadow">
+
+				<div>
+
+					<h3 class="font-bold">Title:</h3>
+					<span class="ml-1">{{ product.title }}</span>
+					<h3 class="font-bold">Description:</h3>
+					<span class="ml-1">{{ product.desc }}</span>
+
+				</div>
+
+				<div>
+					{% if product.main_image %}
+						<img class="w-auto h-auto" src="{{ product.main_image.url }}" alt="{{ product.title }}">
+					{% endif %}
+				</div>
+
+				<a class="text-center border border-red-700 text-red-700 hover:bg-yellow-400 rounded-md p-1 " href="{% url 'product' product.category product.title %}">Details</a>
+
+
+		</div>
+
+	{% empty %}
+
+		<p class="m-auto text-center text-4xl">No Products Yet...</p>
+
+	{% endfor %}
+
+	{% if products %}
+
+		</div>
+
+	{% endif %}
+
+
+{% endblock %}

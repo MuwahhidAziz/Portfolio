@@ -1,0 +1,14 @@
+{% extends "app/layout.html" %}
+
+{% block head %}{% endblock %}
+
+{% block title %}Not Found Error{% endblock %}
+
+{% block body %}
+
+	<div class="flex flex-col items-center mt-8">
+		<h1 class="text-4xl font-bold">404! Not Found</h1>
+		<p class="mt-2 text-gray-600">Your requested <span class="font-semibold">{{ target }}</span> was not found...</p>
+	</div>
+
+{% endblock %}

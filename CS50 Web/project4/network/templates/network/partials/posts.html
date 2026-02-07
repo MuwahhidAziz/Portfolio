@@ -1,0 +1,37 @@
+<div class="d-flex flex-column">
+    {% for post in posts %}
+    <div class="post border border-sm p-2 mb-2">
+        <div class="font-weight-bold" onclick="show(1, 'profile', '{{ post.writer.username }}')">{{ post.writer.username }}</div>
+        <hr />
+        <div class="font-weight-bold">Posted At:</div>
+        <p class="font-weight-light">{{ post.created_at }}</p>
+        <hr />
+        <div class="bg-light text-dark p-1">{{ post.content }}</div>
+        <hr />
+        <div class="d-flex align-items-center">
+            <form class="p-2" method="POST" action="{% url 'like' %}" role='ajax'>
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ post.id }}">
+                <button class="btn btn-{% if user in post.lovers %}primary{% else %}danger{% endif %}" type="submit">♥️</button>
+            </form>
+            <span class="likes">{{ post.like_count }}</span>
+        </div>
+        <hr />
+        {% if post.writer == user %}
+        <a class="btn btn-primary rounded" href="/post?post_id={{ post.id }}">Edit</a>
+        {% endif %}
+    </div>
+    {% empty %}
+    <hr/>
+    <div class="p-6 text-center">No Posts Available</div>
+    {% endfor %}
+</div>
+00:00 Intro
+00:17 All posts (SPA)
+00:23 Pagination
+00:50 Editing Posts
+01:16 Like/Unlike Posts
+01:26 New Post
+01:48 User Profiles (SPA)
+01:54 Follow/UnFollow Users
+02:10 Following Page (SPA)

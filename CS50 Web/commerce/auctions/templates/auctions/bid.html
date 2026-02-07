@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+{% block title %}New Bid{% endblock %}
+{% block body %}
+<div class="dflex flex-column">
+	<div class="dflex">
+		<div class="font-weight-bold">Listing:</div>
+		<div class="text-black">{{ title }}</div>
+	</div>
+	<div class="dflex">
+		<div class="font-weight-bold">Starting Bid:</div>
+		<div class="text-black">${{ Starting }}</div>
+	</div>
+	<div class="dflex">
+		<div class="font-weight-bold">Current Bid:</div>
+		<div class="text-black">${{ Current }}</div>
+	</div>
+	<form action="{% url 'bid' title=title user=user %}" method="POST">
+		{% csrf_token %}
+		{{ form }}
+		{% if msg %}
+			<p class="text-danger">{{ msg }}</p>
+		{% endif %}
+		<input class="btn btn-success" type="submit" value="Place Bid">
+	</form>
+</div>
+{% endblock %}

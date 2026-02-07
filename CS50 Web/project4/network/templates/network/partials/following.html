@@ -1,0 +1,26 @@
+{% for post in posts %}
+<div class="border border-sm p-2 mb-2">
+    <div class="font-weight-bold" onclick="show(1, 'profile', '{{ post.writer.username }}')">{{ post.writer.username }}</div>
+    <hr />
+    <div class="font-weight-bold">Posted At:</div>
+    <p class="font-weight-light">{{ post.created_at }}</p>
+    <hr />
+    <div class="bg-light text-dark p-1">{{ post.content }}</div>
+    <hr />
+    <div class="d-flex align-items-center">
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'like' %}" role='ajax'>
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ post.id }}">
+                <button class="btn btn-{% if user in post.lovers %}primary{% else %}danger{% endif %}" type="submit">♥️</button>
+            </form>
+        {% else %}
+            <div class="btn btn-{% if user in post.lovers %}primary{% else %}danger{% endif %}">♥️</div>
+        {% endif %}
+        <span class="likes">{{ post.like_count }}</span>
+    </div>
+</div>
+{% empty %}
+<hr/>
+<div class="p-6 text-center">No Posts Available</div>
+{% endfor %}

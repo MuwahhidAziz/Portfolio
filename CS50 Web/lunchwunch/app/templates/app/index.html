@@ -1,0 +1,35 @@
+{% extends 'app/layout.html' %}
+
+{% block head %}{% endblock %}
+
+{% block title %}LunchWunch{% endblock %}
+
+{% block body %}
+
+	<section class="Slider">
+
+		<div class="relative w-full">
+
+			<div id="prev" class="absolute top-1/2 left-4 flex items-center justify-center h-[10vmin] w-[10vmin] bg-gray-200 text-gray-700 text-[7vmin] rounded-full">&#10094;</div>
+
+			<div id="box" class="lg:max-w-[20%] absolute bottom-[10%] left-[10%] p-[30px] pt-[50px] rounded-tl-[25px] rounded-br-[25px] bg-white/80 z-1 transition-opacity transition-duration-6000">
+
+				<h2 id="heading" class="text-red-700 text-[32px]">...With Love From Home...</h2>
+
+				<p id="content" class="mt-[20px] text-[16px]">We deliver you lunch</p>
+
+				<p> <a id="link" class="p-[5px] text-[18px] rounded-[5px] border-[1px] border-red-700 hover:bg-yellow-400 text-red-700" href="">Read about our meals</a> </p>
+
+			</div>
+
+			<img id="image" src="static/app/Images/Slider/SM109158.jpeg" class="w-full h-auto" />
+
+			<div id="next" class="absolute top-1/2 right-4 flex items-center justify-center h-[10vmin] w-[10vmin] bg-gray-200 text-gray-700 text-[7vmin] rounded-full">&#10095;</div>
+
+		</div>
+
+	</section>
+
+	<script src="static/app/JS/slider.js"></script>
+
+{% endblock %}
